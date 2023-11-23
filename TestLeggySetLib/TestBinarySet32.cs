@@ -207,5 +207,17 @@ namespace TestLeggySetLib
             ints.Add(3);
             Assert.IsFalse(binSet.Overlaps(ints));
         }
+
+        [TestMethod]
+        public void TestSetEquals()
+        {
+            ISet<int> binSet = new BinarySet32(1, 32);
+            ISet<int> ints = new HashSet<int>();
+            Assert.IsTrue(binSet.SetEquals(ints));
+            binSet.Add(10);
+            Assert.IsFalse(binSet.SetEquals(ints));
+            ints.Add(10);
+            Assert.IsTrue(binSet.SetEquals(ints));
+        }
     }
 }

@@ -143,7 +143,13 @@ namespace LeggySetLib
 
         public bool SetEquals(IEnumerable<int> other)
         {
-            throw new NotImplementedException();
+            if(other.Count() != Count) return false;
+            uint rep = 0;
+            foreach(var item in other)
+            {
+                rep |= GetRepresentingBinary(item);
+            }
+            return rep == setBin;
         }
 
         public void SymmetricExceptWith(IEnumerable<int> other)
