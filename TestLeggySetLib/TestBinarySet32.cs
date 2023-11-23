@@ -107,5 +107,80 @@ namespace TestLeggySetLib
                 Assert.IsTrue(binSet.Contains(i));
             }
         }
+
+        [TestMethod]
+        public void TestIsSupersetTrue()
+        {
+            ISet<int> super = new BinarySet32(1, 32);
+            ISet<int> ints = new HashSet<int>();
+            for(int i = 1;i <= 32;i++)
+            {
+                super.Add(i);
+                ints.Add(i);
+            }
+            Assert.IsTrue(super.IsSupersetOf(ints));
+        }
+
+
+        [TestMethod]
+        public void TestIsProperSupersetTrue()
+        {
+            ISet<int> super = new BinarySet32(1, 32);
+            ISet<int> ints = new HashSet<int>();
+            for (int i = 1; i <= 32; i++)
+            {
+                super.Add(i);
+                if(i<32)ints.Add(i);
+            }
+            Assert.IsTrue(super.IsProperSupersetOf(ints));
+        }
+
+        [TestMethod]
+        public void TestIsProperSupersetLengthFalse()
+        {
+            ISet<int> super = new BinarySet32(1, 32);
+            ISet<int> ints = new HashSet<int>();
+            for (int i = 1; i <= 32; i++)
+            {
+                super.Add(i);
+                ints.Add(i);
+            }
+            Assert.IsFalse(super.IsProperSupersetOf(ints));
+        }
+
+
+        [TestMethod]
+        public void TestIsSupersetLengthFalse()
+        {
+            ISet<int> super = new BinarySet32(1, 32);
+            ISet<int> ints = new HashSet<int>();
+            for (int i = 1; i <= 32; i++)
+            {
+                if (i < 32)
+                {
+                    super.Add(i);
+                }
+                ints.Add(i);
+            }
+            Assert.IsFalse(super.IsSupersetOf(ints));
+        }
+
+        [TestMethod]
+        public void TestIsSupersetNumbersFalse() 
+        {
+            ISet<int> super = new BinarySet32(1, 32);
+            ISet<int> ints = new HashSet<int>();
+            for (int i = 1; i <= 30; i++)
+            {
+                super.Add(i);
+            }
+
+            for (int i = 3; i <= 32; i++)
+            {
+                ints.Add(i);
+            }
+
+            Assert.IsFalse(super.IsSupersetOf(ints));
+        }
     }
 }
