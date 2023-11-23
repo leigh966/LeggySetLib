@@ -29,6 +29,16 @@ namespace LeggySetLib
             }
         }
 
+        private uint GetRepresentationOfCollection(IEnumerable<int> collection)
+        {
+            uint rep = 0;
+            foreach (var item in collection)
+            {
+                rep |= GetRepresentingBinary(item);
+            }
+            return rep;
+        }
+
         public int Count
         {
             get 
@@ -125,11 +135,7 @@ namespace LeggySetLib
 
         public bool Overlaps(IEnumerable<int> other)
         {
-            uint rep = 0;
-            foreach(var item in other)
-            {
-                rep |= GetRepresentingBinary(item);
-            }
+            uint rep = GetRepresentationOfCollection(other);
             return ContainsRepresentation(rep);
         }
 
@@ -144,21 +150,13 @@ namespace LeggySetLib
         public bool SetEquals(IEnumerable<int> other)
         {
             if(other.Count() != Count) return false;
-            uint rep = 0;
-            foreach(var item in other)
-            {
-                rep |= GetRepresentingBinary(item);
-            }
+            uint rep = GetRepresentationOfCollection(other);
             return rep == setBin;
         }
 
         public void SymmetricExceptWith(IEnumerable<int> other)
         {
-            uint rep = 0;
-            foreach (var item in other)
-            {
-                rep |= GetRepresentingBinary(item);
-            }
+            uint rep = GetRepresentationOfCollection(other);
             setBin ^= rep;
         }
 
