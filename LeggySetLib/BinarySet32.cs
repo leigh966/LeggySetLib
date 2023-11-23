@@ -159,7 +159,12 @@ namespace LeggySetLib
 
         public void UnionWith(IEnumerable<int> other)
         {
-            throw new NotImplementedException();
+
+            foreach (var item in other)
+            {
+                setBin |= GetRepresentingBinary(item);
+            }
+
         }
 
         void ICollection<int>.Add(int item)

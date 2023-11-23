@@ -12,7 +12,7 @@ namespace TestLeggySetLib
             {
                 ISet<int> mySet = new BinarySet32(0, 32);
             });
-            
+
         }
 
         [TestMethod]
@@ -20,7 +20,7 @@ namespace TestLeggySetLib
         {
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                ISet<int> mySet = new BinarySet32(1,0);
+                ISet<int> mySet = new BinarySet32(1, 0);
             });
 
         }
@@ -43,7 +43,7 @@ namespace TestLeggySetLib
 
         private void AddNumbers(ISet<int> ints, int lowest, int highest)
         {
-            for(int i = lowest; i <= highest; i++)
+            for (int i = lowest; i <= highest; i++)
             {
                 Assert.IsFalse(ints.Contains(i));
                 ints.Add(i);
@@ -59,7 +59,7 @@ namespace TestLeggySetLib
             Stopwatch binStopWatch = new Stopwatch();
 
             // run lots of times to negate the advantage afforded by caching to sets run last
-            for(int i = 0; i < 100; i++)
+            for (int i = 0; i < 100; i++)
             {
                 binStopWatch.Start();
                 ISet<int> binSet = new BinarySet32(1, 32);
@@ -92,14 +92,14 @@ namespace TestLeggySetLib
 
 
         [TestMethod]
-        public void TestCorrectAddedNumberRemoved() 
+        public void TestCorrectAddedNumberRemoved()
         {
             ISet<int> binSet = new BinarySet32(1, 32);
             AddNumbers(binSet, 1, 32);
             Assert.IsTrue(binSet.Remove(5));
-            for(int i = 0; i <= 32; i++)
+            for (int i = 0; i <= 32; i++)
             {
-                if(i == 5)
+                if (i == 5)
                 {
                     Assert.IsFalse(binSet.Contains(i));
                     continue;
@@ -113,7 +113,7 @@ namespace TestLeggySetLib
         {
             ISet<int> super = new BinarySet32(1, 32);
             ISet<int> ints = new HashSet<int>();
-            for(int i = 1;i <= 32;i++)
+            for (int i = 1; i <= 32; i++)
             {
                 super.Add(i);
                 ints.Add(i);
@@ -130,7 +130,7 @@ namespace TestLeggySetLib
             for (int i = 1; i <= 32; i++)
             {
                 super.Add(i);
-                if(i<32)ints.Add(i);
+                if (i < 32) ints.Add(i);
             }
             Assert.IsTrue(super.IsProperSupersetOf(ints));
         }
@@ -166,7 +166,7 @@ namespace TestLeggySetLib
         }
 
         [TestMethod]
-        public void TestIsSupersetNumbersFalse() 
+        public void TestIsSupersetNumbersFalse()
         {
             ISet<int> super = new BinarySet32(1, 32);
             ISet<int> ints = new HashSet<int>();
@@ -218,6 +218,23 @@ namespace TestLeggySetLib
             Assert.IsFalse(binSet.SetEquals(ints));
             ints.Add(10);
             Assert.IsTrue(binSet.SetEquals(ints));
+        }
+
+        [TestMethod]
+        public void TestUnionWith()
+        {
+            ISet<int> binSet = new BinarySet32(1, 3) { 1, 2 };
+            ISet<int> ints = new HashSet<int>{2,3};
+            Assert.IsTrue(binSet.Contains(1));
+            Assert.IsTrue(binSet.Contains(2));
+            Assert.IsFalse(binSet.Contains(3));
+            Assert.AreEqual(2, binSet.Count);
+            binSet.UnionWith(ints);
+            Assert.IsTrue(binSet.Contains(1));
+            Assert.IsTrue(binSet.Contains(2));
+            Assert.IsTrue(binSet.Contains(3));
+            Assert.AreEqual(3, binSet.Count);
+
         }
     }
 }
