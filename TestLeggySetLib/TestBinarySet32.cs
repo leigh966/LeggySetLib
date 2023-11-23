@@ -182,5 +182,30 @@ namespace TestLeggySetLib
 
             Assert.IsFalse(super.IsSupersetOf(ints));
         }
+
+
+        [TestMethod]
+        public void TestOverlapsTrue()
+        {
+            ISet<int> binSet = new BinarySet32(1, 32);
+            ISet<int> ints = new HashSet<int>();
+            binSet.Add(1);
+            binSet.Add(2);
+            ints.Add(2);
+            ints.Add(3);
+            Assert.IsTrue(binSet.Overlaps(ints));
+        }
+
+        [TestMethod]
+        public void TestOverlapsFalse()
+        {
+            ISet<int> binSet = new BinarySet32(1, 32);
+            ISet<int> ints = new HashSet<int>();
+            binSet.Add(1);
+            binSet.Add(2);
+            ints.Add(4);
+            ints.Add(3);
+            Assert.IsFalse(binSet.Overlaps(ints));
+        }
     }
 }

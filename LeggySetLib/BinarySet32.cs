@@ -125,7 +125,12 @@ namespace LeggySetLib
 
         public bool Overlaps(IEnumerable<int> other)
         {
-            throw new NotImplementedException();
+            uint rep = 0;
+            foreach(var item in other)
+            {
+                rep |= GetRepresentingBinary(item);
+            }
+            return ContainsRepresentation(rep);
         }
 
         public bool Remove(int item)
