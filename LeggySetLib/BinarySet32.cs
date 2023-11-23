@@ -125,7 +125,10 @@ namespace LeggySetLib
 
         public bool Remove(int item)
         {
-            throw new NotImplementedException();
+            uint rep = GetRepresentingBinary(item);
+            bool contains = ContainsRepresentation(rep);
+            setBin &= ~rep;
+            return contains;
         }
 
         public bool SetEquals(IEnumerable<int> other)

@@ -89,5 +89,23 @@ namespace TestLeggySetLib
             binSet.Add(21);
             Assert.AreEqual(2, binSet.Count);
         }
+
+
+        [TestMethod]
+        public void TestCorrectAddedNumberRemoved() 
+        {
+            ISet<int> binSet = new BinarySet32(1, 32);
+            AddNumbers(binSet, 1, 32);
+            Assert.IsTrue(binSet.Remove(5));
+            for(int i = 0; i <= 32; i++)
+            {
+                if(i == 5)
+                {
+                    Assert.IsFalse(binSet.Contains(i));
+                    continue;
+                }
+                Assert.IsTrue(binSet.Contains(i));
+            }
+        }
     }
 }
