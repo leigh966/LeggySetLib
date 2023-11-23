@@ -236,5 +236,22 @@ namespace TestLeggySetLib
             Assert.AreEqual(3, binSet.Count);
 
         }
+
+
+        [TestMethod]
+        public void TestSymmetricExceptWith()
+        {
+            ISet<int> binSet = new BinarySet32(1, 3) { 1, 2 };
+            ISet<int> ints = new HashSet<int> { 2, 3 };
+            Assert.IsTrue(binSet.Contains(1));
+            Assert.IsTrue(binSet.Contains(2));
+            Assert.IsFalse(binSet.Contains(3));
+            Assert.AreEqual(2, binSet.Count);
+            binSet.SymmetricExceptWith(ints);
+            Assert.IsTrue(binSet.Contains(1));
+            Assert.IsTrue(binSet.Contains(3));
+            Assert.IsFalse(binSet.Contains(2));
+            Assert.AreEqual(2, binSet.Count);
+        }
     }
 }

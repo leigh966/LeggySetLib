@@ -154,7 +154,12 @@ namespace LeggySetLib
 
         public void SymmetricExceptWith(IEnumerable<int> other)
         {
-            throw new NotImplementedException();
+            uint rep = 0;
+            foreach (var item in other)
+            {
+                rep |= GetRepresentingBinary(item);
+            }
+            setBin ^= rep;
         }
 
         public void UnionWith(IEnumerable<int> other)
