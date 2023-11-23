@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +29,20 @@ namespace LeggySetLib
             }
         }
 
-        public int Count => throw new NotImplementedException();
+        public int Count
+        {
+            get 
+            {
+                int count = 0;
+                uint binaryNumber = setBin;
+                while (binaryNumber != 0)
+                {
+                    binaryNumber &= (binaryNumber - 1);
+                    count++;
+                }
+                return count;
+            }
+        }
 
         public bool IsReadOnly => throw new NotImplementedException();
 

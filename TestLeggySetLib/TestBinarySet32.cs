@@ -78,5 +78,16 @@ namespace TestLeggySetLib
                 hashStopWatch.Elapsed.TotalMicroseconds, binStopWatch.Elapsed.TotalMicroseconds);
             Assert.IsTrue(hashStopWatch.Elapsed.TotalMicroseconds > binStopWatch.Elapsed.TotalMicroseconds, message);
         }
+
+        [TestMethod]
+        public void TestCountAccurate()
+        {
+            ISet<int> binSet = new BinarySet32(1, 32);
+            Assert.AreEqual(0, binSet.Count);
+            binSet.Add(5);
+            Assert.AreEqual(1, binSet.Count);
+            binSet.Add(21);
+            Assert.AreEqual(2, binSet.Count);
+        }
     }
 }
