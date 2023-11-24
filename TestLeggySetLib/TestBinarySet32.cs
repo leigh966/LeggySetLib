@@ -108,34 +108,25 @@ namespace TestLeggySetLib
             }
         }
 
-
-        [TestMethod]
-        public void TestIsProperSupersetTrue()
+        [DataTestMethod]
+        [DataRow(new int[2] { 1, 2 }, new int[2] { 1, 2 }, false)]
+        [DataRow(new int[3] { 1, 2, 3 }, new int[2] { 1, 2 }, true)]
+        [DataRow(new int[2] { 1, 2 }, new int[2] { 1, 4 }, false)]
+        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 3 }, false)]
+        public void TestIsProperSuperset(int[] arr1, int[] arr2, bool expected)
         {
-            ISet<int> super = new BinarySet32(1, 32);
-            ISet<int> ints = new HashSet<int>();
-            for (int i = 1; i <= 32; i++)
+            ISet<int> binSet = new BinarySet32(1, 32);
+            foreach (var item in arr1)
             {
-                super.Add(i);
-                if (i < 32) ints.Add(i);
+                binSet.Add(item);
             }
-            Assert.IsTrue(super.IsProperSupersetOf(ints));
-        }
-
-        [TestMethod]
-        public void TestIsProperSupersetLengthFalse()
-        {
-            ISet<int> super = new BinarySet32(1, 32);
-            ISet<int> ints = new HashSet<int>();
-            for (int i = 1; i <= 32; i++)
+            ISet<int> hashSet = new HashSet<int>();
+            foreach (var item in arr2)
             {
-                super.Add(i);
-                ints.Add(i);
+                hashSet.Add(item);
             }
-            Assert.IsFalse(super.IsProperSupersetOf(ints));
+            Assert.AreEqual(expected, binSet.IsProperSupersetOf(hashSet));
         }
-
-
 
         [DataTestMethod]
         [DataRow(new int[2] {1,2}, new int[2] { 1, 2 }, true)]
