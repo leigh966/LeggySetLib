@@ -201,20 +201,27 @@ namespace TestLeggySetLib
         }
 
 
-        [TestMethod]
-        public void TestSymmetricExceptWith()
+        [DataTestMethod]
+        [DataRow("1,2", "1,2", "")]
+        [DataRow("1,2", "1,2,200", "")]
+        [DataRow("1,2", "1,200", "1")]
+        [DataRow("1,2", "1,2,11", "")]
+        [DataRow("1,2", "1,11", "1")]
+        [DataRow("1,2", "3,4", "1,2")]
+        public void TestSymmetricExceptWith(string arr1String, string arr2String, string expectedArrString)
         {
-            ISet<int> binSet = new BinarySet32(1, 3) { 1, 2 };
-            ISet<int> ints = new HashSet<int> { 2, 3 };
-            Assert.IsTrue(binSet.Contains(1));
-            Assert.IsTrue(binSet.Contains(2));
-            Assert.IsFalse(binSet.Contains(3));
-            Assert.AreEqual(2, binSet.Count);
+            ISet<int> binSet = new BinarySet32(1, 10);
+            binSet.UnionWith(GetIntArrFromArrString(arr1String));
+            ISet<int> ints = new HashSet<int>(GetIntArrFromArrString(arr2String));
             binSet.SymmetricExceptWith(ints);
-            Assert.IsTrue(binSet.Contains(1));
-            Assert.IsTrue(binSet.Contains(3));
-            Assert.IsFalse(binSet.Contains(2));
-            Assert.AreEqual(2, binSet.Count);
+            if (expectedArrString == "")
+            {
+                Assert.AreEqual(0, binSet.Count);
+                return;
+            }
+            int[] answers = GetIntArrFromArrString(expectedArrString);
+            Assert.IsTrue(binSet.SetEquals(answers));
+            
         }
 
         [DataTestMethod]
