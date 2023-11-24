@@ -19,11 +19,11 @@ namespace LeggySetLib
             this.maxNum = maximumNumber;
 
             int length = maximumNumber - minimumNumber + 1;
-            if (length < 1 )
+            if (length < 1)
             {
                 throw new ArgumentException("Set length cannot be less than 1");
             }
-            if (length > 32) 
+            if (length > 32)
             {
                 throw new ArgumentException("BinarySet32 cannot handle a range of more than 32 numbers");
             }
@@ -41,7 +41,7 @@ namespace LeggySetLib
 
         public int Count
         {
-            get 
+            get
             {
                 int count = 0;
                 uint binaryNumber = setBin;
@@ -54,7 +54,7 @@ namespace LeggySetLib
             }
         }
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly { get { return false; } }
 
         private uint GetRepresentingBinary(int number)
         {
