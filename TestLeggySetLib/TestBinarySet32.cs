@@ -136,20 +136,26 @@ namespace TestLeggySetLib
         }
 
         [DataTestMethod]
-        [DataRow(new int[2] {1,2}, new int[2] { 1, 2 }, true)]
-        [DataRow(new int[3] { 1, 2, 3 }, new int[2] { 1, 2 }, true)]
-        [DataRow(new int[2] { 1, 2 }, new int[2] { 1, 4 }, false)]
-        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 3 }, false)]
-        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 33 }, false)]
-        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 99 }, false)]
-        public void TestIsSuperset(int[] arr1, int[] arr2, bool expected) 
+        [DataRow("1,2", "1,2", true)]
+        [DataRow("1,2,3", "1,2", true)]
+        [DataRow("1,2", "1,4", false)]
+        [DataRow("1,2", "1,2,3", false)]
+        [DataRow("1,2", "1,2,33", false)]
+        [DataRow("1,2", "1,2,99", false)]
+        public void TestIsSuperset(string arr1String, string arr2String, bool expected) 
         {
             ISet<int> binSet = new BinarySet32(1, 32);
-            foreach(var item in arr1)
+            string[] arr1 = arr1String.Split(',');
+            foreach (var item in arr1)
             {
-                binSet.Add(item);
+                binSet.Add(int.Parse(item));
             }
-            ISet<int> hashSet = new HashSet<int>(arr2);
+            ISet<int> hashSet = new HashSet<int>();
+            string[] arr2 = arr2String.Split(',');
+            foreach (var item in arr2)
+            {
+                hashSet.Add(int.Parse(item));
+            }
             Assert.AreEqual(expected, binSet.IsSupersetOf(hashSet));
         }
 
