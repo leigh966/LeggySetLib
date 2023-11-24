@@ -29,12 +29,19 @@ namespace TestLeggySetLib
         }
 
         [TestMethod]
-        public void TestNumberInRangeAdded()
+        [DataTestMethod]
+        [DataRow(0, 0, 0)]
+        [DataRow(2, 2, 33)]
+        [DataRow(33, 2, 33)]
+        [DataRow(1, 1, 32)]
+        [DataRow(32, 1, 32)]
+        [DataRow(14, 1, 32)]
+        public void TestAddNumberInRange(int number, int minNum, int maxNum)
         {
-            ISet<int> mySet = new BinarySet32(1, 32);
-            Assert.IsFalse(mySet.Contains(14));
-            mySet.Add(14);
-            Assert.IsTrue(mySet.Contains(14));
+            ISet<int> mySet = new BinarySet32(minNum, maxNum);
+            Assert.IsFalse(mySet.Contains(number));
+            Assert.IsTrue(mySet.Add(number));
+            Assert.IsTrue(mySet.Contains(number));
         }
 
         private void AddNumbers(ISet<int> ints, int lowest, int highest)
