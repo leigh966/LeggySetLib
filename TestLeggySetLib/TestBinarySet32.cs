@@ -147,11 +147,7 @@ namespace TestLeggySetLib
             {
                 binSet.Add(item);
             }
-            ISet<int> hashSet = new HashSet<int>();
-            foreach (var item in arr2)
-            {
-                hashSet.Add(item);
-            }
+            ISet<int> hashSet = new HashSet<int>(arr2);
             Assert.AreEqual(expected, binSet.IsSupersetOf(hashSet));
         }
 
