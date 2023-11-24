@@ -102,7 +102,8 @@ namespace LeggySetLib
 
         public void IntersectWith(IEnumerable<int> other)
         {
-            throw new NotImplementedException();
+            uint rep = GetRepresentationOfCollection(other, true);
+            setBin &= rep;
         }
 
         public bool IsProperSubsetOf(IEnumerable<int> other)
