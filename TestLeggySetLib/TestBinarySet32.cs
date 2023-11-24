@@ -203,10 +203,6 @@ namespace TestLeggySetLib
 
         [DataTestMethod]
         [DataRow("1,2", "1,2", "")]
-        // [DataRow("1,2", "1,2,200", "")] // should error
-        //[DataRow("1,2", "1,200", "1")] // should error
-        //[DataRow("1,2", "1,2,11", "")] // should error
-        //[DataRow("1,2", "1,11", "1")] // should error
         [DataRow("1,2", "3,4", "1,2,3,4")]
         [DataRow("1,2", "3,2", "1,3")]
         public void TestSymmetricExceptWith(string arr1String, string arr2String, string expectedArrString)
@@ -223,6 +219,20 @@ namespace TestLeggySetLib
             int[] answers = GetIntArrFromArrString(expectedArrString);
             Assert.IsTrue(binSet.SetEquals(answers));
             
+        }
+
+        [DataTestMethod]
+        [DataRow("1,2", "1,2,200")] // should error
+        [DataRow("1,2", "1,200")] // should error
+        [DataRow("1,2", "1,2,11")] // should error
+        [DataRow("1,2", "1,11")] // should error
+        public void TestSymmetricExceptWithErrors(string arr1String, string arr2String)
+        {
+            ISet<int> binSet = new BinarySet32(1, 10);
+            binSet.UnionWith(GetIntArrFromArrString(arr1String));
+            ISet<int> ints = new HashSet<int>(GetIntArrFromArrString(arr2String));
+            Assert.ThrowsException<ArgumentException>(() => binSet.SymmetricExceptWith(ints));
+
         }
 
         [DataTestMethod]
