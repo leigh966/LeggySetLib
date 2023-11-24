@@ -203,11 +203,12 @@ namespace TestLeggySetLib
 
         [DataTestMethod]
         [DataRow("1,2", "1,2", "")]
-        [DataRow("1,2", "1,2,200", "")]
-        [DataRow("1,2", "1,200", "1")]
-        [DataRow("1,2", "1,2,11", "")]
-        [DataRow("1,2", "1,11", "1")]
-        [DataRow("1,2", "3,4", "1,2")]
+        // [DataRow("1,2", "1,2,200", "")] // should error
+        //[DataRow("1,2", "1,200", "1")] // should error
+        //[DataRow("1,2", "1,2,11", "")] // should error
+        //[DataRow("1,2", "1,11", "1")] // should error
+        [DataRow("1,2", "3,4", "1,2,3,4")]
+        [DataRow("1,2", "3,2", "1,3")]
         public void TestSymmetricExceptWith(string arr1String, string arr2String, string expectedArrString)
         {
             ISet<int> binSet = new BinarySet32(1, 10);
