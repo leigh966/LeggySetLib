@@ -148,29 +148,23 @@ namespace TestLeggySetLib
             Assert.AreEqual(expected, binSet.IsSupersetOf(hashSet));
         }
 
-        [TestMethod]
-        public void TestOverlapsTrue()
+
+        [DataTestMethod]
+        [DataRow(new int[2] { 1, 2 }, new int[2] { 1, 2 }, true)]
+        [DataRow(new int[2] { 1, 2 }, new int[2] { 3, 2 }, true)]
+        [DataRow(new int[2] { 1, 2 }, new int[2] { 3, 4 }, false)]
+        [DataRow(new int[2] { 1, 2 }, new int[2] { 0, 3 }, false)]
+        public void TestOverlaps(int[] arr1, int[] arr2, bool expected)
         {
             ISet<int> binSet = new BinarySet32(1, 32);
-            ISet<int> ints = new HashSet<int>();
-            binSet.Add(1);
-            binSet.Add(2);
-            ints.Add(2);
-            ints.Add(3);
-            Assert.IsTrue(binSet.Overlaps(ints));
+            foreach (int item in arr1)
+            {
+                binSet.Add(item);
+            }
+            ISet<int> hashSet = new HashSet<int>(arr2);
+            Assert.AreEqual(expected, binSet.Overlaps(hashSet));
         }
 
-        [TestMethod]
-        public void TestOverlapsFalse()
-        {
-            ISet<int> binSet = new BinarySet32(1, 32);
-            ISet<int> ints = new HashSet<int>();
-            binSet.Add(1);
-            binSet.Add(2);
-            ints.Add(4);
-            ints.Add(3);
-            Assert.IsFalse(binSet.Overlaps(ints));
-        }
 
         [TestMethod]
         public void TestSetEquals()
