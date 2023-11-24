@@ -253,5 +253,14 @@ namespace TestLeggySetLib
             Assert.IsFalse(binSet.Contains(2));
             Assert.AreEqual(2, binSet.Count);
         }
+
+        [DataTestMethod]
+        [DataRow(33, 1, 32)]
+        [DataRow(0, 1, 32)]
+        public void TestAddOutOfRange(int number, int minNumber, int maxNumber)
+        {
+            ISet<int> binSet = new BinarySet32(minNumber, maxNumber);
+            Assert.ThrowsException<ArgumentException>(() => binSet.Add(number));
+        }
     }
 }
