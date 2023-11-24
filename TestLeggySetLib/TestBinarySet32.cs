@@ -109,6 +109,8 @@ namespace TestLeggySetLib
         [DataRow(new int[3] { 1, 2, 3 }, new int[2] { 1, 2 }, true)]
         [DataRow(new int[2] { 1, 2 }, new int[2] { 1, 4 }, false)]
         [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 3 }, false)]
+        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 33 }, false)]
+        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 99 }, false)]
         public void TestIsProperSuperset(int[] arr1, int[] arr2, bool expected)
         {
             ISet<int> binSet = new BinarySet32(1, 32);
@@ -129,6 +131,8 @@ namespace TestLeggySetLib
         [DataRow(new int[3] { 1, 2, 3 }, new int[2] { 1, 2 }, true)]
         [DataRow(new int[2] { 1, 2 }, new int[2] { 1, 4 }, false)]
         [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 3 }, false)]
+        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 33 }, false)]
+        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 99 }, false)]
         public void TestIsSuperset(int[] arr1, int[] arr2, bool expected) 
         {
             ISet<int> binSet = new BinarySet32(1, 32);
