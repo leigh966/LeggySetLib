@@ -300,5 +300,18 @@ namespace TestLeggySetLib
                 Assert.AreEqual(expectedArr[i], arr[i]);
             }
         }
+
+        [TestMethod]
+        public void TestEnumerator()
+        {
+            ISet<int> binSet = new BinarySet32(1, 10);
+            binSet.UnionWith(GetIntArrFromArrString("1,2,3,4,5"));
+            int count = 1;
+            foreach (int i in binSet)
+            {
+                Assert.AreEqual(count, i);
+                count++;
+            }
+        }
     }
 }

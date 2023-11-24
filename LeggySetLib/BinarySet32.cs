@@ -112,7 +112,10 @@ namespace LeggySetLib
 
         public IEnumerator<int> GetEnumerator()
         {
-            throw new NotImplementedException();
+            foreach(int item in ToArray())
+            {
+                yield return item;
+            }
         }
 
         public void IntersectWith(IEnumerable<int> other)
@@ -198,7 +201,7 @@ namespace LeggySetLib
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
     }
 }
