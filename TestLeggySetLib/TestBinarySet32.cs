@@ -262,5 +262,25 @@ namespace TestLeggySetLib
             int[] answers = GetIntArrFromArrString(expectedArrString);
             Assert.IsTrue(binSet.SetEquals(answers));
         }
+
+
+        [DataTestMethod]
+        [DataRow("1,2", "1,2", "")]
+        [DataRow("1,2", "1,3", "2")]
+        [DataRow("1,2", "3,4", "1,2")]
+        public void TestExceptWith(string arr1String, string arr2String, string expectedArrString)
+        {
+            ISet<int> binSet = new BinarySet32(1, 10);
+            binSet.UnionWith(GetIntArrFromArrString(arr1String));
+            ISet<int> ints = new HashSet<int>(GetIntArrFromArrString(arr2String));
+            binSet.IntersectWith(ints);
+            if (expectedArrString == "")
+            {
+                Assert.AreEqual(0, binSet.Count);
+                return;
+            }
+            int[] answers = GetIntArrFromArrString(expectedArrString);
+            Assert.IsTrue(binSet.SetEquals(answers));
+        }
     }
 }
