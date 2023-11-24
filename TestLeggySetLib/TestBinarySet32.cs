@@ -158,6 +158,7 @@ namespace TestLeggySetLib
         [DataRow("1,2", "3,2", true)]
         [DataRow("1,2", "3,4", false)]
         [DataRow("1,2", "0,3", false)]
+        [DataRow("1,2", "0,2", true)]
         public void TestOverlaps(string arr1String, string arr2String, bool expected)
         {
             ISet<int> binSet = new BinarySet32(1, 32);
