@@ -4,6 +4,13 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>LeggySetLib</Title>
+    <PackageTags>sets;set;leggy;datatypes;datatype</PackageTags>
+    <PackageProjectUrl>https://github.com/leigh966/LeggySetLib</PackageProjectUrl>
+    <Authors>Leigh Hurley</Authors>
+    <Company>ItsTheNikolai</Company>
+    <Copyright>GNU</Copyright>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
