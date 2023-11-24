@@ -108,19 +108,6 @@ namespace TestLeggySetLib
             }
         }
 
-        [TestMethod]
-        public void TestIsSupersetTrue()
-        {
-            ISet<int> super = new BinarySet32(1, 32);
-            ISet<int> ints = new HashSet<int>();
-            for (int i = 1; i <= 32; i++)
-            {
-                super.Add(i);
-                ints.Add(i);
-            }
-            Assert.IsTrue(super.IsSupersetOf(ints));
-        }
-
 
         [TestMethod]
         public void TestIsProperSupersetTrue()
@@ -149,40 +136,26 @@ namespace TestLeggySetLib
         }
 
 
-        [TestMethod]
-        public void TestIsSupersetLengthFalse()
+
+        [DataTestMethod]
+        [DataRow(new int[2] {1,2}, new int[2] { 1, 2 }, true)]
+        [DataRow(new int[3] { 1, 2, 3 }, new int[2] { 1, 2 }, true)]
+        [DataRow(new int[2] { 1, 2 }, new int[2] { 1, 4 }, false)]
+        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 3 }, false)]
+        public void TestIsSuperset(int[] arr1, int[] arr2, bool expected) 
         {
-            ISet<int> super = new BinarySet32(1, 32);
-            ISet<int> ints = new HashSet<int>();
-            for (int i = 1; i <= 32; i++)
+            ISet<int> binSet = new BinarySet32(1, 32);
+            foreach(var item in arr1)
             {
-                if (i < 32)
-                {
-                    super.Add(i);
-                }
-                ints.Add(i);
+                binSet.Add(item);
             }
-            Assert.IsFalse(super.IsSupersetOf(ints));
+            ISet<int> hashSet = new HashSet<int>();
+            foreach (var item in arr2)
+            {
+                hashSet.Add(item);
+            }
+            Assert.AreEqual(expected, binSet.IsSupersetOf(hashSet));
         }
-
-        [TestMethod]
-        public void TestIsSupersetNumbersFalse()
-        {
-            ISet<int> super = new BinarySet32(1, 32);
-            ISet<int> ints = new HashSet<int>();
-            for (int i = 1; i <= 30; i++)
-            {
-                super.Add(i);
-            }
-
-            for (int i = 3; i <= 32; i++)
-            {
-                ints.Add(i);
-            }
-
-            Assert.IsFalse(super.IsSupersetOf(ints));
-        }
-
 
         [TestMethod]
         public void TestOverlapsTrue()
