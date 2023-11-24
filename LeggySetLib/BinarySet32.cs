@@ -147,8 +147,16 @@ namespace LeggySetLib
         public bool SetEquals(IEnumerable<int> other)
         {
             if (other.Count() != Count) return false;
-            uint rep = GetRepresentationOfCollection(other, false);
-            return rep == setBin;
+            try
+            {
+                uint rep = GetRepresentationOfCollection(other, false);
+                return rep == setBin;
+            }
+            catch(ArgumentException)
+            {
+                return false;
+            }
+
         }
 
         public void SymmetricExceptWith(IEnumerable<int> other)
