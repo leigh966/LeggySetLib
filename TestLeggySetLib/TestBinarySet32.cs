@@ -313,5 +313,36 @@ namespace TestLeggySetLib
                 count++;
             }
         }
+
+        [DataTestMethod]
+        [DataRow("1,2", "1,2", true)]
+        [DataRow( "1,2", "1,2,3", true)]
+        [DataRow( "1,4", "1,2", false)]
+        [DataRow( "1,2,3", "1,2", false)]
+        [DataRow("1,2", "1,2,33", true)]
+        [DataRow("1,2", "1,2,99", true)]
+        public void TestIsSubsetOf(string arr1String, string arr2String, bool expected)
+        {
+            ISet<int> binSet = new BinarySet32(1, 32);
+            binSet.UnionWith(GetIntArrFromArrString(arr1String));
+            ISet<int> hashSet = new HashSet<int>(GetIntArrFromArrString(arr2String));
+            Assert.AreEqual(expected, binSet.IsSubsetOf(hashSet));
+        }
+
+        [DataTestMethod]
+        [DataRow("1,2", "1,2", false)]
+        [DataRow("1,2", "1,2,3", true)]
+        [DataRow("1,4", "1,2", false)]
+        [DataRow("1,2,3", "1,2", false)]
+        [DataRow("1,2", "1,2,33", true)]
+        [DataRow("1,2", "1,2,99", true)]
+        public void TestIsProperSubsetOf(string arr1String, string arr2String, bool expected)
+        {
+            ISet<int> binSet = new BinarySet32(1, 32);
+            binSet.UnionWith(GetIntArrFromArrString(arr1String));
+            ISet<int> hashSet = new HashSet<int>(GetIntArrFromArrString(arr2String));
+            Assert.AreEqual(expected, binSet.IsProperSubsetOf(hashSet));
+        }
+
     }
 }

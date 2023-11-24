@@ -126,7 +126,7 @@ namespace LeggySetLib
 
         public bool IsProperSubsetOf(IEnumerable<int> other)
         {
-            throw new NotImplementedException();
+            return IsSubsetOf(other) && Count < other.Count();
         }
 
         public bool IsProperSupersetOf(IEnumerable<int> other)
@@ -136,7 +136,12 @@ namespace LeggySetLib
 
         public bool IsSubsetOf(IEnumerable<int> other)
         {
-            throw new NotImplementedException();
+            if(Count > other.Count()) return false;
+            foreach(int item in ToArray())
+            {
+                if(!other.Contains(item)) return false;
+            }
+            return true;
         }
 
         public bool IsSupersetOf(IEnumerable<int> other)
