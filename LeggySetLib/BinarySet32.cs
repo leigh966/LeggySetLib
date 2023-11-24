@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace LeggySetLib
 {
@@ -58,14 +51,14 @@ namespace LeggySetLib
 
         private uint GetRepresentingBinary(int number)
         {
-            // error for < minNum
-            // error for > maxNum
+            if (number > maxNum || number < minNum)
+                throw new ArgumentException("Number " + number.ToString() + " not in range " + minNum.ToString() + " - " + maxNum.ToString());
             int position = number - minNum;
             return (uint)(1 << position);
         }
 
         public bool Add(int item)
-        { 
+        {
             uint rep = GetRepresentingBinary(item);
             bool contains = ContainsRepresentation(rep);
             setBin |= rep;
@@ -126,9 +119,9 @@ namespace LeggySetLib
         public bool IsSupersetOf(IEnumerable<int> other)
         {
             if (other.Count() > Count) return false;
-            foreach(var item in other)
+            foreach (var item in other)
             {
-                if(!Contains(item)) return false;
+                if (!Contains(item)) return false;
             }
             return true;
         }
@@ -149,7 +142,7 @@ namespace LeggySetLib
 
         public bool SetEquals(IEnumerable<int> other)
         {
-            if(other.Count() != Count) return false;
+            if (other.Count() != Count) return false;
             uint rep = GetRepresentationOfCollection(other);
             return rep == setBin;
         }

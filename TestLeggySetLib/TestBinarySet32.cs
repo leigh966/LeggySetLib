@@ -97,7 +97,7 @@ namespace TestLeggySetLib
             ISet<int> binSet = new BinarySet32(1, 32);
             AddNumbers(binSet, 1, 32);
             Assert.IsTrue(binSet.Remove(5));
-            for (int i = 0; i <= 32; i++)
+            for (int i = 1; i <= 32; i++)
             {
                 if (i == 5)
                 {
