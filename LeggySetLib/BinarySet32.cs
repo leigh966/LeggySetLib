@@ -85,9 +85,23 @@ namespace LeggySetLib
             return ContainsRepresentation(rep);
         }
 
+        public int[] ToArray()
+        {
+            List<int> list = new List<int>();
+            for(int i = minNum; i <= maxNum; i++)
+            {
+                if(Contains(i)) list.Add(i);
+            }
+            return list.ToArray();
+        }
+
         public void CopyTo(int[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            int[] from = ToArray();
+            for(int index = 0; index < from.Length; index++)
+            {
+                array[arrayIndex+ index] = from[index];
+            }
         }
 
         public void ExceptWith(IEnumerable<int> other)
@@ -179,7 +193,7 @@ namespace LeggySetLib
 
         void ICollection<int>.Add(int item)
         {
-            throw new NotImplementedException();
+            Add(item);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

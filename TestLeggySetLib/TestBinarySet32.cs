@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TestLeggySetLib
 {
@@ -281,6 +282,23 @@ namespace TestLeggySetLib
             }
             int[] answers = GetIntArrFromArrString(expectedArrString);
             Assert.IsTrue(binSet.SetEquals(answers));
+        }
+
+        [DataTestMethod]
+        [DataRow("1,2", "1,2,0,0",1, "1,1,2,0")]
+        [DataRow("1,2", "1,2,0,0", 0, "1,2,0,0")]
+        [DataRow("1,2", "1,2,0,0", 2, "1,2,1,2")]
+        public void TestCopyTo(string setArrString, string arrString, int index, string expectedArrString)
+        {
+            ISet<int> binSet = new BinarySet32(1, 10);
+            binSet.UnionWith(GetIntArrFromArrString(setArrString));
+            var arr = GetIntArrFromArrString(arrString);
+            var expectedArr = GetIntArrFromArrString(expectedArrString);
+            binSet.CopyTo(arr, index);
+            for (int i = 0; i < expectedArr.Length; i++)
+            {
+                Assert.AreEqual(expectedArr[i], arr[i]);
+            }
         }
     }
 }
