@@ -245,9 +245,9 @@ namespace TestLeggySetLib
         }
 
         [DataTestMethod]
-        [DataRow("1,2", "1,2", "")]
-        [DataRow("1,2", "1,3", "2")]
-        [DataRow("1,2", "3,4", "1,2")]
+        [DataRow("1,2", "1,2", "1,2")]
+        [DataRow("1,2", "1,3", "1")]
+        [DataRow("1,2", "3,4", "")]
         public void TestIntersectWith(string arr1String, string arr2String, string expectedArrString)
         {
             ISet<int> binSet = new BinarySet32(1, 10);
