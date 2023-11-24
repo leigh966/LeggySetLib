@@ -169,15 +169,15 @@ namespace TestLeggySetLib
 
 
         [DataTestMethod]
-        [DataRow(new int[2] { 1, 2 }, new int[2] { 1, 2 }, true)]
-        [DataRow(new int[2] { 1, 2 }, new int[3] { 1, 2, 3 }, false)]
-        [DataRow(new int[3] { 1, 2, 3 }, new int[2] { 1, 2 }, false)]
-        [DataRow(new int[1] { 1 }, new int[2] { 1, 200 }, false)]
-        public void TestSetEquals(int[] arr1, int[] arr2, bool expected)
+        [DataRow("1,2", "1,2", true)]
+        [DataRow("1,2", "1,2,3", false)]
+        [DataRow("1,2,3", "1,2", false)]
+        [DataRow("1", "1,200", false)]
+        public void TestSetEquals(string arr1String, string arr2String, bool expected)
         {
             ISet<int> binSet = new BinarySet32(1, 32);
-            binSet.UnionWith(arr1);
-            ISet<int> hashSet = new HashSet<int>(arr2);
+            binSet.UnionWith(GetIntArrFromArrString(arr1String));
+            ISet<int> hashSet = new HashSet<int>(GetIntArrFromArrString(arr2String));
             Assert.AreEqual(expected, binSet.SetEquals(hashSet));
 
         }
