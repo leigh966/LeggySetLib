@@ -92,7 +92,8 @@ namespace LeggySetLib
 
         public void ExceptWith(IEnumerable<int> other)
         {
-            throw new NotImplementedException();
+            uint rep = GetRepresentationOfCollection(other, true);
+            setBin &= ~rep;
         }
 
         public IEnumerator<int> GetEnumerator()

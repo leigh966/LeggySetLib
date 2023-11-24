@@ -273,7 +273,7 @@ namespace TestLeggySetLib
             ISet<int> binSet = new BinarySet32(1, 10);
             binSet.UnionWith(GetIntArrFromArrString(arr1String));
             ISet<int> ints = new HashSet<int>(GetIntArrFromArrString(arr2String));
-            binSet.IntersectWith(ints);
+            binSet.ExceptWith(ints);
             if (expectedArrString == "")
             {
                 Assert.AreEqual(0, binSet.Count);
