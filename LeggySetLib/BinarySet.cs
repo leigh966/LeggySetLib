@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 
 namespace LeggySetLib
 {
-    public abstract class BinarySet : ISet<int>
+    public abstract class BinarySet<T> : ISet<int>
     {
+        protected T setBin;
         public abstract int NUMBER_OF_BITS {  get; } 
 
         protected int minNum, maxNum;
+
+
+        #region Public_Properties
         public abstract int Count { get; }
         public bool IsReadOnly { get { return false; } }
+        #endregion
 
         #region Initialization
         protected void Init(int minimumNumber, int maximumNumber)
@@ -47,9 +52,13 @@ namespace LeggySetLib
 
         #endregion
 
+        #region Basic_Operations
         public abstract bool Add(int item);
         public abstract void Clear();
         public abstract bool Contains(int item);
+        #endregion
+
+        #region Enumerable_Operations
         public abstract void ExceptWith(IEnumerable<int> other);
         public abstract void IntersectWith(IEnumerable<int> other);
 
@@ -106,6 +115,7 @@ namespace LeggySetLib
         public abstract bool SetEquals(IEnumerable<int> other);
         public abstract void SymmetricExceptWith(IEnumerable<int> other);
         public abstract void UnionWith(IEnumerable<int> other);
+        #endregion
 
         #region Get_Enumerator
         IEnumerator IEnumerable.GetEnumerator()

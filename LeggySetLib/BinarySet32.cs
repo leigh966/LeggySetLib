@@ -2,16 +2,21 @@
 
 namespace LeggySetLib
 {
-    public class BinarySet32 : BinarySet, ISet<int>
+    public class BinarySet32 : BinarySet<uint>, ISet<int>
     {
-        private uint setBin;
         public override int NUMBER_OF_BITS => 32;
 
         #region Initialization
 
-        public BinarySet32(int minimumNumber, int maximumNumber) : base(minimumNumber, maximumNumber) { }
+        public BinarySet32(int minimumNumber, int maximumNumber) : base(minimumNumber, maximumNumber)
+        {
+            setBin = 0;
+        }
 
-        public BinarySet32(int minimumNumber, int maximumNumber, IEnumerable<int> ints) : base(minimumNumber, maximumNumber, ints) { }
+        public BinarySet32(int minimumNumber, int maximumNumber, IEnumerable<int> ints) : base(minimumNumber, maximumNumber, ints)
+        {
+            setBin = 0;
+        }
         #endregion
 
         #region Private_Methods

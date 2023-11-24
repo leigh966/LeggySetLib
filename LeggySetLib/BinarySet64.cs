@@ -2,17 +2,22 @@
 
 namespace LeggySetLib
 {
-    public class BinarySet64 : BinarySet, ISet<int>
+    public class BinarySet64 : BinarySet<ulong>, ISet<int>
     {
         
-        private ulong setBin;
         public override int NUMBER_OF_BITS => 64;
 
         #region Initialization
 
-        public BinarySet64(int minimumNumber, int maximumNumber) : base(minimumNumber, maximumNumber) { }
+        public BinarySet64(int minimumNumber, int maximumNumber) : base(minimumNumber, maximumNumber) 
+        {
+            setBin = 0;
+        }
 
-        public BinarySet64(int minimumNumber, int maximumNumber, IEnumerable<int> ints) : base(minimumNumber, maximumNumber, ints) {}
+        public BinarySet64(int minimumNumber, int maximumNumber, IEnumerable<int> ints) : base(minimumNumber, maximumNumber, ints) 
+        {
+            setBin = 0;
+        }
         #endregion
 
         #region Private_Methods
