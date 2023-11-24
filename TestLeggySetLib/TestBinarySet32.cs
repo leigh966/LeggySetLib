@@ -5,28 +5,24 @@ namespace TestLeggySetLib
     [TestClass]
     public class TestBinarySet32
     {
-        [TestMethod]
-        public void TestInitRangeTooBig()
+        [DataTestMethod]
+        [DataRow(1,0)]
+        [DataRow(1, 33)]
+        [DataRow(0, 32)]
+        public void TestInitBadRange(int min, int max)
         {
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                ISet<int> mySet = new BinarySet32(0, 32);
+                ISet<int> mySet = new BinarySet32(min,max);
             });
 
         }
 
-        [TestMethod]
-        public void TestInitRangeTooSmall()
-        {
-            Assert.ThrowsException<ArgumentException>(() =>
-            {
-                ISet<int> mySet = new BinarySet32(1, 0);
-            });
-
-        }
-
-        [TestMethod]
-        public void TestInitGoodRange()
+        [DataTestMethod]
+        [DataRow(0, 0)]
+        [DataRow(2, 33)]
+        [DataRow(1, 32)]
+        public void TestInitGoodRange(int min, int max)
         {
             ISet<int> mySet = new BinarySet32(1, 32);
 
