@@ -2,42 +2,43 @@
 
 namespace LeggySetLib
 {
-    public class BinarySet32 : BinarySet, ISet<int>
+    public class BinarySet64 : BinarySet, ISet<int>
     {
-        private uint setBin;
-        public override int NUMBER_OF_BITS => 32;
+        
+        private ulong setBin;
+        public override int NUMBER_OF_BITS => 64;
 
         #region Initialization
 
-        public BinarySet32(int minimumNumber, int maximumNumber) : base(minimumNumber, maximumNumber) { }
+        public BinarySet64(int minimumNumber, int maximumNumber) : base(minimumNumber, maximumNumber) { }
 
-        public BinarySet32(int minimumNumber, int maximumNumber, IEnumerable<int> ints) : base(minimumNumber, maximumNumber, ints) { }
+        public BinarySet64(int minimumNumber, int maximumNumber, IEnumerable<int> ints) : base(minimumNumber, maximumNumber, ints) {}
         #endregion
 
         #region Private_Methods
-        private uint GetRepresentationOfCollection(IEnumerable<int> collection, bool ignoreException)
+        private ulong GetRepresentationOfCollection(IEnumerable<int> collection, bool ignoreException)
         {
-            uint rep = 0;
+            ulong rep = 0;
             foreach (int item in collection)
-            { 
-                if(ignoreException && (item < minNum || item > maxNum))
+            {
+                if (ignoreException && (item < minNum || item > maxNum))
                 {
                     continue;
                 }
-                rep |= GetRepresentingBinary(item);        
+                rep |= GetRepresentingBinary(item);
             }
             return rep;
         }
 
-        private uint GetRepresentingBinary(int number)
+        private ulong GetRepresentingBinary(int number)
         {
             if (number > maxNum || number < minNum)
                 throw new ArgumentException("Number " + number.ToString() + " not in range " + minNum.ToString() + " - " + maxNum.ToString());
             int position = number - minNum;
-            return (uint)(1 << position);
+            return (ulong)(1 << position);
         }
 
-        private bool ContainsRepresentation(uint rep)
+        private bool ContainsRepresentation(ulong rep)
         {
             return (setBin & rep) != 0;
         }
@@ -49,7 +50,7 @@ namespace LeggySetLib
             get
             {
                 int count = 0;
-                uint binaryNumber = setBin;
+                ulong binaryNumber = setBin;
                 while (binaryNumber != 0)
                 {
                     binaryNumber &= (binaryNumber - 1);
@@ -59,13 +60,12 @@ namespace LeggySetLib
             }
         }
 
-        
         #endregion
 
         #region Basic_Operations
         public override bool Add(int item)
         {
-            uint rep = GetRepresentingBinary(item);
+            ulong rep = GetRepresentingBinary(item);
             bool contains = ContainsRepresentation(rep);
             setBin |= rep;
             return !contains;
@@ -81,13 +81,13 @@ namespace LeggySetLib
 
         public override bool Contains(int item)
         {
-            uint rep = GetRepresentingBinary(item);
+            ulong rep = GetRepresentingBinary(item);
             return ContainsRepresentation(rep);
         }
 
         public override bool Remove(int item)
         {
-            uint rep = GetRepresentingBinary(item);
+            ulong rep = GetRepresentingBinary(item);
             bool contains = ContainsRepresentation(rep);
             setBin &= ~rep;
             return contains;
@@ -96,30 +96,33 @@ namespace LeggySetLib
 
         #region Enumerable_Operations
 
+
         public override void ExceptWith(IEnumerable<int> other)
         {
-            uint rep = GetRepresentationOfCollection(other, true);
+            ulong rep = GetRepresentationOfCollection(other, true);
             setBin &= ~rep;
         }
         public override void IntersectWith(IEnumerable<int> other)
         {
-            uint rep = GetRepresentationOfCollection(other, true);
+            ulong rep = GetRepresentationOfCollection(other, true);
             setBin &= rep;
         }
 
 
         public override bool Overlaps(IEnumerable<int> other)
         {
-            uint rep = GetRepresentationOfCollection(other, true);
+            ulong rep = GetRepresentationOfCollection(other, true);
             return ContainsRepresentation(rep);
         }
+
+
 
         public override bool SetEquals(IEnumerable<int> other)
         {
             if (other.Count() != Count) return false;
             try
             {
-                uint rep = GetRepresentationOfCollection(other, false);
+                ulong rep = GetRepresentationOfCollection(other, false);
                 return rep == setBin;
             }
             catch (ArgumentException)
@@ -131,7 +134,7 @@ namespace LeggySetLib
 
         public override void SymmetricExceptWith(IEnumerable<int> other)
         {
-            uint rep = GetRepresentationOfCollection(other, false);
+            ulong rep = GetRepresentationOfCollection(other, false);
             setBin ^= rep;
         }
 
@@ -144,6 +147,14 @@ namespace LeggySetLib
             }
 
         }
+        #endregion
+
+        #region Get_Enumerator
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
         #endregion
 
     }
