@@ -22,6 +22,7 @@ namespace LeggySetLib
 
         public bool Add(char item)
         {
+            if ((int)item < minNumber || (int)item > maxNumber) throw new NotALetterException(item, "Cannot add chars that aren't letters!");
             int value = GetValue(item);
             return binarySet.Add(value);
         }
