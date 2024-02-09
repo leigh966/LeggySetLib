@@ -16,5 +16,17 @@ namespace TestLeggySetLib
             charset.Add(toAdd);
             Assert.IsTrue(charset.Contains(toContain));
         }
+
+
+        [DataTestMethod]
+        [DataRow('@')]
+        [DataRow((char)60)]
+        [DataRow('[')]
+        [DataRow('{')]
+        public void TestAddBadValue(char badChar)
+        {
+            ISet<char> charset = new AlphabetSet();
+            Assert.ThrowsException<NotALetterException>(()=>charset.Add(badChar));
+        }
     }
 }
