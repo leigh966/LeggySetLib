@@ -8,9 +8,11 @@ Since many of the operations on this set are actually just basic binary arithmat
 
 ## Use
 ### Instantiation
+If you need to store numbers in a range of 32 or less, you can use BinarySet32 like this:
 ```c#
 ISet<int> numbersSet = new BinarySet32(33,64) // Setting 33 as our minimum number and 64 as our maximum number - this range must include 32 values or less
 ```
+or if you need a range bigger than 32 but <= 64, you can use BinarySet64 like this:
 ```c#
 ISet<int> numbersSet = new BinarySet64(1,64) // Setting 1 as our minimum number and 64 as our maximum number - this range must include 64 values or less
 ```
