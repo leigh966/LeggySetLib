@@ -2,7 +2,7 @@
 
 This library provides NET Framework C# class libraries for a 32 bit binary set and 64 bit binary set. The basic principle is that, instead of storing the numbers that we add to the set, we keep an index of a known range of numbers where each bit represents whether it is present in the set.
 
-Since many of the operations on this set are actually just basic binary arithmetic, these operations are exceptionally fast (provably much faster than the HashSet provided by C#)! The sets are not just fast either; since the representation depends on flipping bits within a single int(32 bit) or long(64 bit), the size of the set is consistent no matter how many values it holds making it more memory efficient than almost any other data type for storing large numbers of entries. 
+Since many of the operations on this set are actually just basic binary arithmetic, these operations are exceptionally fast (provably much faster than the HashSet provided by C#) as well as having a complexity of O(1)! The sets are not just fast either; since the representation depends on flipping bits within a single int(32 bit) or long(64 bit), the size of the set is consistent no matter how many values it holds making it more memory efficient than almost any other data type for storing large numbers of entries. 
 
 ## Use
 ### Instantiation
